@@ -31,13 +31,13 @@ public class DashboardPage {
         transferToSecondButton.click();
     }
 
-    public int getTransferToFirstButton() {
+    public int getFirstCardBalance() {
         val text = cards.first().text();
         return extractBalance(text);
     }
 
-    public int getTransferToSecondButton() {
-        val text = cards.first().text();
+    public int getSecondCardBalance() {
+        val text = cards.last().text();
         return extractBalance(text);
     }
 

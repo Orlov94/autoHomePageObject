@@ -29,16 +29,17 @@ public class TransferMoneyTest {
 
     @Test
     void shouldTransferMoneySecondToFirstCard() {
+
         int value = 100;
         String cardNumber = String.valueOf(DataHelper.getSecondNumber());
         val dashboardPage = new DashboardPage();
-        var firstCardBalance = dashboardPage.getTransferToFirstButton();
-        var secondCardBalance = dashboardPage.getTransferToSecondButton();
+        var firstCardBalance = dashboardPage.getFirstCardBalance();
+        var secondCardBalance = dashboardPage.getSecondCardBalance();
         dashboardPage.transferToSecondButton();
         val transferPage = new TransferPage();
         transferPage.makeTransfer(value, cardNumber);
-        var firstCardBalanceNew = dashboardPage.getTransferToFirstButton();
-        var secondCardBalanceNew = dashboardPage.getTransferToSecondButton();
+        var firstCardBalanceNew = dashboardPage.getFirstCardBalance();
+        var secondCardBalanceNew = dashboardPage.getSecondCardBalance();
         Assertions.assertEquals(secondCardBalance - value, secondCardBalanceNew);
         Assertions.assertEquals(firstCardBalance + value, firstCardBalanceNew);
     }

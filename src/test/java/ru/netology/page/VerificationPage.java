@@ -14,7 +14,7 @@ public class VerificationPage {
 
     public VerificationPage() {
 
-        codeField.shouldBe(visible, Duration.ofSeconds(20));
+        codeField.shouldBe(visible);
     }
 
     public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
