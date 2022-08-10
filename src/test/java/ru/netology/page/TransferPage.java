@@ -13,7 +13,7 @@ public class TransferPage {
 
     public void makeTransfer(int value, String cardInfo) {
         amountInput.setValue(Integer.toString(value));
-        fromInput.setValue(String.valueOf(cardInfo));
+        fromInput.setValue(cardInfo);
         transferButton.click();
 
     }

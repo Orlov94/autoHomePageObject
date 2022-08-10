@@ -11,7 +11,6 @@ import ru.netology.page.LoginPage;
 import ru.netology.page.TransferPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TransferMoneyTest {
 
@@ -28,14 +27,47 @@ public class TransferMoneyTest {
 
 
     @Test
-    void shouldTransferMoneySecondToFirstCard() {
+    void shouldTransferMoneyFirstToSecondCard() {
 
         int value = 100;
-        String cardNumber = String.valueOf(DataHelper.getSecondNumber());
+        String cardNumber = DataHelper.getFirstNumber().getCardNumber();
         val dashboardPage = new DashboardPage();
         var firstCardBalance = dashboardPage.getFirstCardBalance();
         var secondCardBalance = dashboardPage.getSecondCardBalance();
         dashboardPage.transferToSecondButton();
+        val transferPage = new TransferPage();
+        transferPage.makeTransfer(value, cardNumber);
+        var firstCardBalanceNew = dashboardPage.getFirstCardBalance();
+        var secondCardBalanceNew = dashboardPage.getSecondCardBalance();
+        Assertions.assertEquals(secondCardBalance + value, secondCardBalanceNew);
+        Assertions.assertEquals(firstCardBalance - value, firstCardBalanceNew);
+    }
+
+    @Test
+    void shouldTransferMoneySecondToFirstCard() {
+
+        int value = 500;
+        String cardNumber = DataHelper.getSecondNumber().getCardNumber();
+        val dashboardPage = new DashboardPage();
+        var firstCardBalance = dashboardPage.getFirstCardBalance();
+        var secondCardBalance = dashboardPage.getSecondCardBalance();
+        dashboardPage.transferToFirstButton();
+        val transferPage = new TransferPage();
+        transferPage.makeTransfer(value, cardNumber);
+        var firstCardBalanceNew = dashboardPage.getFirstCardBalance();
+        var secondCardBalanceNew = dashboardPage.getSecondCardBalance();
+        Assertions.assertEquals(secondCardBalance - value, secondCardBalanceNew);
+        Assertions.assertEquals(firstCardBalance + value, firstCardBalanceNew);
+    }
+    @Test
+    void shouldTransferMoneySecondToFirstCardOverLimit() {
+
+        int value = 15_000;
+        String cardNumber = DataHelper.getSecondNumber().getCardNumber();
+        val dashboardPage = new DashboardPage();
+        var firstCardBalance = dashboardPage.getFirstCardBalance();
+        var secondCardBalance = dashboardPage.getSecondCardBalance();
+        dashboardPage.transferToFirstButton();
         val transferPage = new TransferPage();
         transferPage.makeTransfer(value, cardNumber);
         var firstCardBalanceNew = dashboardPage.getFirstCardBalance();
