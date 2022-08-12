@@ -62,17 +62,14 @@ public class TransferMoneyTest {
     @Test
     void shouldTransferMoneySecondToFirstCardOverLimit() {
 
-        int value = 15_000;
+        int value = 18_000;
         String cardNumber = DataHelper.getSecondNumber().getCardNumber();
         val dashboardPage = new DashboardPage();
-        var firstCardBalance = dashboardPage.getFirstCardBalance();
         var secondCardBalance = dashboardPage.getSecondCardBalance();
         dashboardPage.transferToFirstButton();
         val transferPage = new TransferPage();
-        transferPage.makeTransfer(value, cardNumber);
-        var firstCardBalanceNew = dashboardPage.getFirstCardBalance();
-        var secondCardBalanceNew = dashboardPage.getSecondCardBalance();
-        Assertions.assertEquals(secondCardBalance - value, secondCardBalanceNew);
-        Assertions.assertEquals(firstCardBalance + value, firstCardBalanceNew);
+        transferPage.makeTransfer(secondCardBalance + value, cardNumber);
+
+        transferPage.getTransferMoneyOverLimit();
     }
 }
