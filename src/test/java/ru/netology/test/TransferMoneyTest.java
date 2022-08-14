@@ -51,6 +51,7 @@ public class TransferMoneyTest {
         val dashboardPage = new DashboardPage();
         var firstCardBalance = dashboardPage.getFirstCardBalance();
         var secondCardBalance = dashboardPage.getSecondCardBalance();
+        dashboardPage.transferToFirstButton();
         val transferPage = new TransferPage();
         transferPage.makeTransfer(value, cardNumber);
         var firstCardBalanceNew = dashboardPage.getFirstCardBalance();
